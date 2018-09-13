@@ -5,7 +5,6 @@ const glob = require('glob'),
   CompressionPlugin = require('compression-webpack-plugin'),
   ExtractTextPlugin = require('extract-text-webpack-plugin'),
   PurifyCSSPlugin = require('purifycss-webpack'),
-  FaviconsWebpackPlugin = require('favicons-webpack-plugin'),
   autoprefixer = require('autoprefixer'),
   webpackConfig = require('./webpack.config.base'),
   helpers = require('./helpers'),
@@ -33,7 +32,7 @@ webpackConfig.module.rules = [...webpackConfig.module.rules,
           loader: 'css-loader',
           options: {
             minimize: true,
-            sourceMap: true,
+            sourceMap: false,
             importLoaders: 2
           }
         },
@@ -77,7 +76,6 @@ webpackConfig.plugins = [...webpackConfig.plugins,
   new HtmlWebpackPlugin({
     inject: true,
     template: helpers.root('/src/index.html'),
-    favicon: helpers.root('/src/favicon.ico'),
     minify: {
       removeComments: true,
       collapseWhitespace: true,
@@ -102,7 +100,6 @@ webpackConfig.plugins = [...webpackConfig.plugins,
   new DefinePlugin({
     'process.env': env
   }),
-  new FaviconsWebpackPlugin(helpers.root('/src/icon.png'))
 ];
 
 module.exports = webpackConfig;
