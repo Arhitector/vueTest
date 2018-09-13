@@ -1,36 +1,38 @@
-<div class="wrapper" >
-  <div class="wrapper-xaxis">
-    <div v-for="(xaxis, i) in grdiItem" v-if="xaxis[i]" >{{xaxis[i].y}}</div>
-  </div>
-  <div class="wrapper-yaxis">
-      <div v-for="xaxis in grdiItem" v-if="xaxis[0].y == 0">{{xaxis[0].x}}</div>
+<div class="wrap">
+  <div class="wrapper">
+    <div class="wrapper-xaxis">
+      <div v-for="(xaxis, i) in grdiItem" v-if="xaxis[i]" >{{xaxis[i].y}}</div>
     </div>
-  <div id="tableWrap" class="wrapper-scroll" >
-    <table class="grid" >
-      <tbody>
-          <tr v-for="xaxis in grdiItem" >
-            <td v-for="yaxis in xaxis" v-bind:class="{ active: yaxis.isActive }" >
-              <!-- {{yaxis.x}},{{yaxis.y}} -->
-              <input
-                class="check"
-                type="checkbox"
-                :checked="yaxis.isActive"
-                @change="handleChecked(yaxis.x, yaxis.y)"
-              >
-              <input
-                class="value"
-                type="number"
-                :disabled="!yaxis.isActive"
-                :value="yaxis.text"
-                @input="handleChangeText(yaxis.x, yaxis.y, $event)"
-              >
-              <button
-                v-if="yaxis.showSave"
-                @click="onSave(yaxis.x, yaxis.y)"
-              >save</button>
-            </td>
-          </tr>
-      </tbody>
-    </table>
+    <div class="wrapper-yaxis">
+        <div v-for="yaxis in grdiItem" >{{yaxis[0].x}}</div>
+      </div>
+    <div class="wrapper-scroll" >
+      <table class="grid" >
+        <tbody>
+            <tr v-for="(xaxis, x) in grdiItem" >
+              <td v-for="(yaxis, y) in xaxis" v-bind:class="{ active: yaxis.isActive }" >
+                <input
+                  class="check"
+                  type="checkbox"
+                  :checked="yaxis.isActive"
+                  @change="handleChecked([x, y])"
+                >
+                <input
+                  class="value"
+                  type="number"
+                  :disabled="!yaxis.isActive"
+                  :value="yaxis.text"
+                  @input="handleChangeText([x, y], $event)"
+                >
+                <button
+                  v-if="yaxis.showSave"
+                  @click="onSave([x, y])"
+                >save</button>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+  <div id="wrap"></div>
 </div>
