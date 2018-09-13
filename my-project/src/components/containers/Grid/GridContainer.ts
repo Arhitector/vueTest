@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash';
 const cellWidth = 124;
 const cellHeight = 32;
 const frameSize = 40;
-const maxSize = 400;
+const maxSize = 4000;
 
 @Component({
   template: require('./grid.html')
@@ -14,14 +14,14 @@ const maxSize = 400;
 export class GridContainer extends Vue {
   localgrid = [];
   changedData = [];
-  tableGrid = [0,0];
-  windowGrid = [Math.floor((document.body.offsetHeight - frameSize*2)/cellHeight), Math.floor(document.body.offsetWidth/cellWidth)];
+  tableGrid = [0, 0];
+  windowGrid = [Math.floor((document.body.offsetHeight - frameSize * 2) / cellHeight), Math.floor(document.body.offsetWidth / cellWidth)];
   mounted() {
     this.requestGrid();
-    let el = document.getElementById("wrap");
+    let el = document.getElementById('wrap');
     el.style.width = `${cellWidth * maxSize}px`;
     el.style.height = `${cellHeight * maxSize}px`;
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   handleChecked(val) {
@@ -40,7 +40,7 @@ export class GridContainer extends Vue {
   requestGrid() {
     this.$store.dispatch(MutationTypes.GET_GRID, {
       grid: [...this.tableGrid, ...this.windowGrid],
-    })
+    });
     this.localgrid = cloneDeep(this.$store.state.grid);
   }
 
@@ -57,9 +57,8 @@ export class GridContainer extends Vue {
   }
 
   handleScroll() {
-    const el = document.documentElement;
-		const diffX = maxSize * cellHeight > this.tableGrid[1] ? Math.ceil((el.scrollLeft) / cellWidth) : this.tableGrid[1];
-    const diffY = maxSize * cellHeight > this.tableGrid[0] ? Math.ceil((el.scrollTop) / cellHeight) : this.tableGrid[0];
+    const diffX = maxSize * cellHeight > this.tableGrid[1] ? Math.ceil(document.documentElement.scrollLeft / cellWidth) : this.tableGrid[1];
+    const diffY = maxSize * cellHeight > this.tableGrid[0] ? Math.ceil(document.documentElement.scrollTop / cellHeight) : this.tableGrid[0];
     (this.tableGrid[0] !== diffX || this.tableGrid[1] !== diffY)
     && ( this.tableGrid = [ this.windowGrid[0] * diffY, this.windowGrid[1] * diffX ])
     && this.requestGrid();

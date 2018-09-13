@@ -6,7 +6,6 @@ import {State} from './state';
 const mutations: MutationTree<State> = {
   [MutationTypes.GET_GRID]: (state: State, {items}) => {
     state.grid = items;
-    
   }
 };
 

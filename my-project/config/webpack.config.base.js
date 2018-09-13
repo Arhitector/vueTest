@@ -36,10 +36,6 @@ let config = {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin([{
-      from: 'src/assets',
-      to: './assets'
-    }, ]),
   ]
 };
 

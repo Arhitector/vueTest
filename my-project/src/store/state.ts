@@ -3,14 +3,13 @@ export interface GridItem {
   x: number;
   y: number;
   isActive: boolean;
+  text: string;
 }
 
 export class State {
-  public count: number;
   public grid: GridItem[];
 
   constructor() {
-    this.count = 0;
     this.grid = [];
   }
 }

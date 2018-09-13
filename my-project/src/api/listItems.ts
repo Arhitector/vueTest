@@ -7,7 +7,7 @@ function arrayData(params) {
         x: params[0] + y,
         y: params[1] + x,
         isActive: Math.random() > 0.5,
-        text: Math.random() > 0.5 ? '' : Math.round(Math.random()*100),
+        text: Math.random() > 0.5 ? '' : Math.round(Math.random() * 100),
       };
     }
   }
